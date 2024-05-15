@@ -34,21 +34,7 @@ public class TableauDND{
     		return tab[coords[0]].getValue(Arrays.copyOfRange(coords,1,dim));
     	}
     	else {
-    		return getValue(coords[0]);
+    		return ((Cellule)tab[coords[0]]).get(); //Exception to manage (java.lang.ArrayIndexOutOfBoundsException)
     	}
     }
-    
-    
-    
-    public static void main(String[] args) {
-      TableauDND tab = new TableauDND(9,6,5,7,4);
-      
-      tab.getValue(5,1,2,1,4);
-      
-  }
-    
-    
-    
-    
-    
 }
