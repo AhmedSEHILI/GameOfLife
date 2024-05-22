@@ -3,7 +3,7 @@ public class Cellule extends TableauDND{
 	
 	private boolean val;
 	
-	public Cellule(boolean data ) {
+	public Cellule(boolean data) {
 		
 		this.val=data;
 	}
