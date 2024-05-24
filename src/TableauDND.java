@@ -2,7 +2,7 @@ import java.util.*;
 
 public class TableauDND{
 	
-	private TableauDND[] tab; // A voir si on peut changer en list
+	private TableauDND[] tab;
 	
 	private List<Integer> tabBounds = new ArrayList<Integer>();
 	 
@@ -28,7 +28,7 @@ public class TableauDND{
     	}
         else {
         	for(int i=0;i<args[0];i++) {
-        		tab[i]= new Cellule(0);
+        		tab[i]= new Cellule(false);
         	}
         }
     }
@@ -41,19 +41,15 @@ public class TableauDND{
    
     
     
-    public int getValue(List<Integer> coords) {
-    	int dim=coords.size();
+    public boolean getValue(int... coords) {
+    	int dim=coords.length;
     	
     	if(dim>1) {
-    		return tab[coords.get(0)].getValue(coords.subList(1,dim));
+    		return tab[coords[0]].getValue(Arrays.copyOfRange(coords,1,dim));
     	}
     	else {
-    		return ((Cellule)tab[coords.get(0)]).get(); //Exception to manage (java.lang.ArrayIndexOutOfBoundsException)
+    		return ((Cellule)tab[coords[0]]).get(); //Exception to manage (java.lang.ArrayIndexOutOfBoundsException)
     	}
-    }
-    
-    public TableauDND[] getTableauDND() {
-    	return tab;
     }
     
     public List<Integer> getTabBounds(){
@@ -70,3 +66,5 @@ public class TableauDND{
     }
 */    
 }
+
+

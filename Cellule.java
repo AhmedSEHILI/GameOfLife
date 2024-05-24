@@ -1,18 +1,18 @@
 
 public class Cellule extends TableauDND{
 	
-	private boolean val;
+	private int val;
 	
-	public Cellule(boolean data ) {
+	public Cellule(int data) {
 		
 		this.val=data;
 	}
 	
-	public boolean get() {
+	public int get() {
 		return val;
 	}
 	
-	public void set(boolean data) {
+	public void set(int data) {
 		this.val=data;
 	}
 	
