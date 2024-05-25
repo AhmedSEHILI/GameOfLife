@@ -35,11 +35,5 @@ public class VoisinageExtractor{
         return coordonnees;
     }
     
-/*
-    public static void main(String[] args) {
-    	VoisinageExtractor voisinage = new VoisinageExtractor("G2*={(1,1,1),(1,0,2),(1,7,6)}"); //gestion des exceptions de arraybounds
-        System.out.println("Nom : " + voisinage.getNom());
-        System.out.println("Coordonnées : " + voisinage.getCoordonnees());
-    }
-*/
+
 }

@@ -1,20 +1,25 @@
+
 import java.util.List;
 
-public class COMPTER extends Regle{
+import reglesClassique.Regle;
+
+public class COMPTER extends Regle<TableauDND>{ // cette classe ne peut pas rejoindre le package des regles classique car elle est pas générale (utilise un voisinage la dedans)
 	
 	private int cpt;	
 	
-	public COMPTER(String chaineVoisinage) {
-		cpt = 0;
-		Voisinage v= new Voisinage(super.Point,chaineVoisinage,super.tab.getTabBounds());
+	public COMPTER( TableauDND tab, List<Integer> Point) {
+		super(tab, Point);
+	}
+	
+
+	
+    
+    public void calculer() {
+		Voisinage v= new Voisinage(super.Point,super.nomVoisinage,super.tab.getTabBounds());  // nom voisinage ??
 		for(List<Integer> e : v) {
 			cpt+=tab.getValue(e);
 		}
-	}
-	
-    @Override 
-    public int getValue() {
-		return cpt;
+		setValue(cpt);
 	}
 	
 }

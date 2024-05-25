@@ -7,15 +7,14 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 	private List<List<Integer>> coordonneesVoisinage;
 	private int index;
 	private int nbrCoords;
-	private VoisinageExtractor Vois;
 	private List<Integer> tabBounds;
 	
-	public Voisinage(List<Integer> point, String chaineVoisinage, List<Integer> tabBounds) {
+	public Voisinage(List<Integer> point, String nomVoisinage, List<Integer> tabBounds) {
 		
 		this.index = 0;
 		this.point = point;
-		Vois = new VoisinageExtractor(chaineVoisinage);
-		coordonneesVoisinage = Vois.getCoordonnees();
+		//Vois = new VoisinageExtractor(chaineVoisinage);
+		coordonneesVoisinage = voisinageBDD.bddGet(nomVoisinage).getCoordonnees(); // important if voisinageBDD.bddGet(nomVoisinage) == null  gérer l'exception
 		nbrCoords = coordonneesVoisinage.size();
 		this.tabBounds = tabBounds;
 	}
@@ -58,25 +57,5 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 	public Iterator<List<Integer>> iterator() {
 		return this;
 	}
-	
-	
-/*	
-	public static void main(String[] args) {
 
-    	TableauDND TDND = new TableauDND(3,3,2,4);
-    	ArrayList<Integer> al = new ArrayList<Integer>();
-    	al.add(1);
-    	al.add(1);
-    	al.add(1);
-    	al.add(1);
-    	
-
-    	Voisinage vois = new Voisinage(al, "G2*={(0,0,0,0),(1,0,0,1),(0,1,0,1)}", TDND.getTabBounds());
-   
-    	for(List<Integer> l : vois) {
-    		System.out.println(l);
-    	}
-
-	}
-*/
 }

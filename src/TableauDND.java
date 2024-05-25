@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class TableauDND {
+public class TableauDND{
 	
 	private List<TableauDND> tab; // Utilisation de List au lieu de tableau
 	
@@ -43,6 +43,16 @@ public class TableauDND {
 			return ((Cellule) tab.get(coords.get(0))).get(); // Exception to manage (java.lang.ArrayIndexOutOfBoundsException)
 		}
 	}
+	
+    public void setValue(List<Integer> coords, int val) {
+        int dim = coords.size();
+        
+        if (dim > 1) {
+            tab.get(coords.get(0)).setValue(coords.subList(1, dim), val);
+        } else {
+            ((Cellule) tab.get(coords.get(0))).set(val); 
+        }
+    }
 	
 	public List<TableauDND> getTDND(){
 		return Collections.unmodifiableList(tab);
