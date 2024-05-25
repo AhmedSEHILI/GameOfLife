@@ -9,14 +9,12 @@ public class Regle {
 	protected TableauDND tab; 
 	protected List<Integer> Point;
 	
+	public Regle() {}
 
 	public Regle(int value) {
 		this.value=value;
 	}
 	
-	public Regle() {
-		this.value=value;
-	}
 	
 	public Regle(int value, TableauDND tab, List<Integer> Point) {
 		this.value=value;

@@ -26,7 +26,7 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 		this.point = point;
 	}
 	
-	public boolean isOutOfBoundsVerification() {
+	private boolean isOutOfBoundsVerification() {
 		
 		for(int i=0; i<tabBounds.size(); i++) {
 			if(point.get(i)+coordonneesVoisinage.get(index).get(i) >= tabBounds.get(i)
@@ -45,7 +45,6 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 
 	@Override
 	public List<Integer> next() {
-		
 		List<Integer> list = new ArrayList<Integer>();
 	 	for(int i=0;  i<tabBounds.size(); i++) 
 	 		list.add(point.get(i)+coordonneesVoisinage.get(index).get(i));
@@ -53,17 +52,15 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 		index+=1;
 		
 		return Collections.unmodifiableList(list);
-		
 	}
 	
 	@Override
 	public Iterator<List<Integer>> iterator() {
-
 		return this;
 	}
 	
 	
-	
+/*	
 	public static void main(String[] args) {
 
     	TableauDND TDND = new TableauDND(3,3,2,4);
@@ -81,5 +78,5 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
     	}
 
 	}
-
+*/
 }

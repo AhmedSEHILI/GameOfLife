@@ -10,7 +10,11 @@ public class COMPTER extends Regle{
 		for(List<Integer> e : v) {
 			cpt+=tab.getValue(e);
 		}
-		super(cpt);
+	}
+	
+    @Override 
+    public int getValue() {
+		return cpt;
 	}
 	
 }
