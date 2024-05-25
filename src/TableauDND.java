@@ -66,6 +66,8 @@ public class TableauDND{
 		return Collections.unmodifiableList(tabBounds); // sinon si on retourne tabBounds, qui est une référence, on permet 
 		// la modification de ce tableau a partir de l'extérieur
 	}
+	
+	
     
 /*  
 	public static void main(String[] args) {
