@@ -68,6 +68,25 @@ public class TableauDND{
 	}
 	
 	
+	
+    public static void parcourirTableau(TableauDND tableau) {
+    	List<Integer> coords = new ArrayList<Integer>();
+        if (tableau.getTabBounds().size() == 1) {
+            for (int i = 0; i < tableau.getTabBounds().get(0); i++) {
+                coords.add(i);
+                System.out.print(tableau.getValue(coords) + " | ");
+                coords.remove(coords.size() - 1);
+            }
+            System.out.println();
+        } else {
+            for (int i = 0; i < tableau.getTabBounds().get(0); i++) {
+                coords.add(i);
+                parcourirTableau(tableau.getTableauDND().get(i));
+                coords.remove(coords.size() - 1);
+            }
+        }
+    }
+	
     
 /*  
 	public static void main(String[] args) {

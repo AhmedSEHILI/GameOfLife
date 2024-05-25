@@ -75,22 +75,7 @@ public class voisinageBDD {
 	    	ArrayList<Integer> a6 = new ArrayList<Integer>();
 	    	a6.add(2);
 	    	a6.add(2);
-	    	
-	    	ArrayList<Integer> a7 = new ArrayList<Integer>();
-	    	a7.add(3);
-	    	a7.add(3);
-	    	
-	    	ArrayList<Integer> a8 = new ArrayList<Integer>();
-	    	a8.add(3);
-	    	a8.add(4);
-	    	
-	    	ArrayList<Integer> a9 = new ArrayList<Integer>();
-	    	a9.add(4);
-	    	a9.add(0);
-	    	
-	    	ArrayList<Integer> a10 = new ArrayList<Integer>();
-	    	a10.add(4);
-	    	a10.add(2);
+
 
 	    	
 	    	
@@ -100,12 +85,6 @@ public class voisinageBDD {
 	    	TDND.setValue(a4, 1);
 	    	TDND.setValue(a5, 1);
 	    	TDND.setValue(a6, 1);
-	    	TDND.setValue(a7, 1);
-	    	TDND.setValue(a8, 1);
-	    	TDND.setValue(a9, 1);
-	    	TDND.setValue(a10, 1);
-	    	
-	    	
 
 			
 	    	for(int i = 0; i<5; i++) {
@@ -119,18 +98,26 @@ public class voisinageBDD {
 	    		}
 	    	}
 	    	
-	    	for(int i = 0; i<5; i++) {
-	    		
-	    		for(int j = 0; j<5; j++) {
-	    				
+	    	
+
+	    	
+	    	TableauDND.parcourirTableau(TDND);
+	    	
+	    	
+	    	
+
+			GrilleGraphique grid = new GrilleGraphique(5, 5, 100);
+			
+			
+			for (int i = 0; i< 5; i++) {
+				
+				for (int j = 0; j< 5; j++) {
 	    	    	ArrayList<Integer> at = new ArrayList<Integer>();
 	    	    	at.add(i);
 	    	    	at.add(j);
-	    	    	System.out.print(TDND.getValue(at)+ " | ");
-	    		}
-	    		System.out.println();
-	    	}
-	    	    	
+					if(TDND.getValue(at) == 1) grid.colorierCase(i, j);
+				}	
+			}		
 
 	 }
 	 
