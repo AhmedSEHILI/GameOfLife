@@ -10,7 +10,6 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 	private List<Integer> tabBounds;
 	
 	public Voisinage(List<Integer> point, String nomVoisinage, List<Integer> tabBounds) {
-		
 		this.index = 0;
 		this.point = point;
 		//Vois = new VoisinageExtractor(chaineVoisinage);
@@ -21,7 +20,6 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 	
 	
 	public void reset(ArrayList<Integer> point) {
-		
 		this.point = point;
 	}
 	
@@ -37,7 +35,6 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 	
 	@Override
 	public boolean hasNext() {
-		
 		while(index < nbrCoords && isOutOfBoundsVerification()) index += 1;
 		return (index < nbrCoords);
 	}

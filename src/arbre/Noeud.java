@@ -36,6 +36,4 @@ public class Noeud <type> {
 	public Noeud<type> getOp3() {
 		return op3;
 	}
-	
-	
 }

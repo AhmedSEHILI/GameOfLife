@@ -64,10 +64,8 @@ public class TableauDND{
     
 	public List<Integer> getTabBounds() {
 		return Collections.unmodifiableList(tabBounds); // sinon si on retourne tabBounds, qui est une référence, on permet 
-		// la modification de ce tableau a partir de l'extérieur
+														// la modification de ce tableau a partir de l'extérieur
 	}
-	
-	
 	
     public static void parcourirTableau(TableauDND tableau) {
     	List<Integer> coords = new ArrayList<Integer>();
@@ -85,15 +83,7 @@ public class TableauDND{
                 coords.remove(coords.size() - 1);
             }
         }
-    }
-	
-    
-/*  
-	public static void main(String[] args) {
-		TableauDND TDND = new TableauDND(2, 3, 2, 4);
-		System.out.println(TDND.getTabBounds());
-	}
-*/    
+    }   
 }
 
 

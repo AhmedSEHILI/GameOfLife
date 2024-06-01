@@ -1,3 +1,5 @@
+package GUI;
+
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,12 +9,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-//Merci à StackOverflow pour sa précieuse contribution !
-
-
-public class GrilleGraphique extends JPanel
-{
-	/**
+public class GridGUI extends JPanel{
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -26,7 +24,7 @@ public class GrilleGraphique extends JPanel
 	 * @param largeur La largeur (en nombre de cases) de la grille affichée.
 	 * @param hauteur La hauteur (en nombre de cases) de la grille affichée.
 	 */
-	public GrilleGraphique(int largeur, int hauteur, int taille_case) 
+	public GridGUI(int largeur, int hauteur, int taille_case) 
 	{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
@@ -93,4 +91,4 @@ public class GrilleGraphique extends JPanel
 	{
 		return hauteur;
 	}
-}
+}  

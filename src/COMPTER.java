@@ -1,7 +1,5 @@
-
 import java.util.List;
-
-import reglesClassique.Regle;
+import reglesClassique.*;
 
 public class COMPTER extends Regle<TableauDND>{ // cette classe ne peut pas rejoindre le package des regles classique car elle est pas générale (utilise un voisinage la dedans)
 	

@@ -1,0 +1,20 @@
+<Configuration>
+    <dimensionalité>2d</dimensionalité>
+    <Taille>2</Taille>
+    <!-- <display>(26,,)</display>  exemple -->
+    <Regle>SI(EQ(COMPTER(G4), 1), SI(SUPEQ(COMPTER(G4), 4), 0, 1), SI(EQ(COMPTER(G4), 2), 1, 0))</Regle>
+    <initialState>RANDOM(15)</initialState>
+    <!-- <initialState>((−1, 0),(1, 0),(0, −1),(0, 1))</initialState> -->
+    <!-- <initialState>Avec des coord comme ((1,1),(1,3),(4,3))</initialState> -->
+    
+    <!--voisiange ajoutée -->
+    <Voisinages>
+        <Voisinage>
+            G4∗ = {(−1, 0),(1, 0),(0, −1),(0, 1)}
+        </Voisinage>
+        <Voisinage>
+            G3 = {(0, 0, 0),(1, 1, 0),(−1, 0, 0)}
+        </Voisinage>
+    </Voisinages>
+
+</Configuration>

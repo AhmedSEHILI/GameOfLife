@@ -23,7 +23,7 @@ public class VoisinageExtractor{
             coordonnees.add(coord);
         }
 
-        this.nom = chaineVoisinage.substring(0, chaineVoisinage.indexOf("=")).strip();
+        this.nom = chaineVoisinage.substring(0, chaineVoisinage.indexOf("=")).trim();
         this.coordonnees = coordonnees;
     }
 

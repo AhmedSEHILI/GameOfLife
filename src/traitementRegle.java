@@ -1,7 +1,5 @@
 import reglesClassique.*;
-
 import java.util.List;
-
 import arbre.*;
 
 public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
@@ -16,14 +14,12 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 			this.chaineRegle = chaineRegle;
 		}
 		
-		
 	    public void appliquerReglePoint(List<Integer> Point) {
 	    	
 	    	this.Point = Point;
 			creerArbreRegle(chaineRegle);
 			parcours();
 			changerValeurCellule();
-	    	
 	    }
 		
 	    private static boolean isInteger(String str) {
@@ -158,49 +154,22 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 	            }
 	        }
 	    }
-
-		
-		
-	    
-	    
-		
 		
 		public void traiter(Noeud<Regle<TableauDND>> noeud) {
-			
-			//System.out.println(noeud.getR().getValue());
-			
 			
 			if (noeud.getR() instanceof COMPTER) {
 				noeud.getR().setNomVoisinage(noeud.getOp1().getR().getnomVoisinage());
 			}
 			
 			else {
-				
 				if (noeud.getOp1() != null) noeud.getR().setVal1(noeud.getOp1().getR().getValue());
 				if (noeud.getOp2() != null) noeud.getR().setVal2(noeud.getOp2().getR().getValue());
-				if (noeud.getOp3() != null) noeud.getR().setVal3(noeud.getOp3().getR().getValue());
-				
-				
-			}
-			
+				if (noeud.getOp3() != null) noeud.getR().setVal3(noeud.getOp3().getR().getValue());	
+			}		
 			noeud.getR().calculer();
-			
-			
-			//System.out.println(noeud.getR().getValue());
-			//System.out.println("---------------------");
-
 		}
-		
-
-		
 		
 		private void changerValeurCellule() {
-
 			tab.setValue(Point,  getRacine().getR().getValue());
 		}
-		
-		
-		
-		
-
 }

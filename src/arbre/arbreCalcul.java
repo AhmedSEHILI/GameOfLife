@@ -5,11 +5,8 @@ public abstract class arbreCalcul<type> { // j'ai conçu cette classe d'arbre de
 	private Noeud<type> racine;
 	
 	public arbreCalcul() {
-		
 		racine = null;
 	}
-	
-	
 	
 	public void addRacine(Noeud<type> racine) {
 		
