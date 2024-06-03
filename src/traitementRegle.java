@@ -1,5 +1,6 @@
 import reglesClassique.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import arbre.*;
@@ -8,22 +9,47 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 
 		private List<Integer> Point;
 		private TableauDND tab;
+		private TableauDND tabSave;
 		private String  chaineRegle;
 		
 	    public traitementRegle(String chaineRegle, TableauDND tab) {
 			super();
 			this.tab = tab;
+			this.tabSave =  new TableauDND(tab.getTabBounds());
 			this.chaineRegle = chaineRegle;
+			
 		}
 		
-		
-	    public void appliquerReglePoint(List<Integer> Point) {
+	    
+	    public TableauDND appliquerRegleTableauDND() {
+	        parcourTabDND(tab, new ArrayList<>(), tab.getTabBounds(), 0);
+	        return tabSave;
+	    }
+
+	    private void parcourTabDND(TableauDND tableauDND, List<Integer> coords, List<Integer> tabBounds, int profondeur) {
+	        if (profondeur == tabBounds.size()) {
+	            appliquerReglePoint(coords);
+	        } else {
+	            for (int i = 0; i < tabBounds.get(profondeur); i++) {
+	                coords.add(i);
+	                if (profondeur < tabBounds.size() - 1) {
+	                	parcourTabDND(tableauDND.getTDND().get(i), new ArrayList<>(coords), tabBounds, profondeur + 1);
+	                } else {
+	                	appliquerReglePoint(coords);
+	                }
+	                coords.remove(coords.size() - 1);
+	            }
+	        }
+	    }
+	    
+	    
+	    private void appliquerReglePoint(List<Integer> Point) {
 	    	
 	    	this.Point = Point;
-			creerArbreRegle(chaineRegle);
+	    	creerArbreRegle(chaineRegle);
 			parcours();
-			changerValeurCellule();
-	    	
+			chargerValeurCellule();
+	    	//System.out.println("----------------");
 	    }
 		
 	    private static boolean isInteger(String str) {
@@ -71,8 +97,8 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 				N = new Noeud<Regle<TableauDND>>(R);
 			}
 			
-			else if(operande.equals("COMPTER")) {
-				R = new COMPTER(tab, Point);  // le nom de voisinage est a fournir lors des l'éxamination du fils du noeud compter
+			else if(operande.equals("COMPTER")) { 
+				R = new COMPTER(tab, this.Point);  // le nom de voisinage est a fournir lors des l'éxamination du fils du noeud compter
 				N = new Noeud<Regle<TableauDND>>(R);
 			}
 			
@@ -168,10 +194,10 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 		public void traiter(Noeud<Regle<TableauDND>> noeud) {
 			
 			//System.out.println(noeud.getR().getValue());
-			
+	
 			
 			if (noeud.getR() instanceof COMPTER) {
-				noeud.getR().setNomVoisinage(noeud.getOp1().getR().getnomVoisinage());
+				noeud.getR().setNomVoisinage(noeud.getOp1().getR().getnomVoisinage()); 
 			}
 			
 			else {
@@ -186,7 +212,8 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 			noeud.getR().calculer();
 			
 			
-			//System.out.println(noeud.getR().getValue());
+			
+		//	System.out.println(noeud.getR().getClass() + " | " + noeud.getR().getValue() + " | " +  noeud.getR().getnomVoisinage() );
 			//System.out.println("---------------------");
 
 		}
@@ -194,13 +221,16 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 
 		
 		
-		private void changerValeurCellule() {
+		private void chargerValeurCellule() {
 
-			tab.setValue(Point,  getRacine().getR().getValue());
+			tabSave.setValue(Point,  getRacine().getR().getValue());
 		}
 		
 		
 		
+		public void setTab(TableauDND tab) {
+			this.tab = tab;
+		}
 		
 
 }

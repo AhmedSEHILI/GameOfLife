@@ -19,7 +19,9 @@ public class GrilleGraphique extends JPanel
 
 	private int largeur, hauteur, taille_case;
 	
-	private List<Point> casesAColorier;
+	public static int iterateur1D = 0; // pour l'affichage des tab 1D dans la mm grille 
+	
+	public List<Point> casesAColorier;
 
 	/**
 	 * Constructeur.
@@ -92,5 +94,36 @@ public class GrilleGraphique extends JPanel
 	public int getHauteur()
 	{
 		return hauteur;
+	}
+	
+	public static void afficheur2D(int dim1, int dim2, TableauDND tab, GrilleGraphique grid) {
+		
+        for (int i = 0; i < dim1; i++) {
+            for (int j = 0; j < dim2; j++) {
+                ArrayList<Integer> coord = new ArrayList<>();
+                coord.add(i);
+                coord.add(j);
+                if (tab.getValue(coord) == 1) {
+                    grid.colorierCase(j, i); // Color new state
+                }
+            }
+        }
+	}
+	
+	
+	public static void afficheur1D(int dim2, TableauDND tab, GrilleGraphique grid) {  // pour le triangle de S.... par exemple;
+		
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < dim2; j++) {
+                ArrayList<Integer> coord = new ArrayList<>();
+                coord.add(i);
+                coord.add(j);
+                if (tab.getValue(coord) == 1) {
+                    grid.colorierCase(j, iterateur1D); // Color new state
+                }
+            }
+        }
+        
+        iterateur1D ++;
 	}
 }

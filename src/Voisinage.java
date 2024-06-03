@@ -4,7 +4,7 @@ import java.util.*;
 public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer>> {
 
 	private List<Integer> point;
-	private List<List<Integer>> coordonneesVoisinage;
+	public List<List<Integer>> coordonneesVoisinage;
 	private int index;
 	private int nbrCoords;
 	private List<Integer> tabBounds;

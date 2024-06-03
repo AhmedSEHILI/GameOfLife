@@ -9,30 +9,29 @@ public class TableauDND{
 	// Constructeur
 	public TableauDND() {}
 	 
-	public TableauDND(int... args) {
-		remplirTabBounds(args);
-		tab = new ArrayList<>(args[0]);
-                
-		int dim = args.length;
-        
-		if (args.length > 1) {
-			int[] sousDim = Arrays.copyOfRange(args, 1, dim);
-			for (int i = 0; i < args[0]; i++) {
-				// Création récursive des tableau de dimension n-1 
-				tab.add(new TableauDND(sousDim));
-			}
-		} else {
-			for (int i = 0; i < args[0]; i++) {
-				tab.add(new Cellule(0));
-			}
-		}
-	}
+    public TableauDND(List<Integer> args) {
+        remplirTabBounds(args);
+        tab = new ArrayList<>(args.get(0));
+
+        int dim = args.size();
+
+        if (dim > 1) {
+            List<Integer> sousDim = args.subList(1, dim);
+            for (int i = 0; i < args.get(0); i++) {
+                // Création récursive des tableaux de dimension n-1
+                tab.add(new TableauDND(sousDim));
+            }
+        } else {
+            for (int i = 0; i < args.get(0); i++) {
+                tab.add(new Cellule(0));
+            }
+        }
+    }
+
     
-	private void remplirTabBounds(int... args) {
-		for (int arg : args) {
-			tabBounds.add(arg);
-		}
-	}
+    private void remplirTabBounds(List<Integer> args) {
+        tabBounds.addAll(args);
+    }
    
 	public int getValue(List<Integer> coords) {
 		int dim = coords.size();
@@ -55,10 +54,11 @@ public class TableauDND{
     }
 	
 	public List<TableauDND> getTDND(){
+		//return Collections.unmodifiableList(tab);
 		return Collections.unmodifiableList(tab);
 	}
     
-	public List<TableauDND> getTableauDND() {
+	public List<TableauDND> getTableauDND() {  /// ????????
 		return tab;
 	}
     
@@ -86,14 +86,37 @@ public class TableauDND{
             }
         }
     }
-	
     
-/*  
-	public static void main(String[] args) {
-		TableauDND TDND = new TableauDND(2, 3, 2, 4);
-		System.out.println(TDND.getTabBounds());
-	}
-*/    
+    
+
+    
+
+    public static TableauDND copyTableauDND(TableauDND original) {
+        return copyRecursive(original);
+    }
+
+    private static TableauDND copyRecursive(TableauDND original) {
+        List<Integer> bounds = original.getTabBounds();
+        TableauDND copy = new TableauDND(bounds);
+
+        if (bounds.size() == 1) {
+            for (int i = 0; i < bounds.get(0); i++) {
+                List<Integer> coords = Arrays.asList(i);
+                int value = original.getValue(coords);
+                copy.setValue(coords, value);
+            }
+        } else {
+            for (int i = 0; i < bounds.get(0); i++) {
+                TableauDND subOriginal = original.getTableauDND().get(i);
+                TableauDND subCopy = copyRecursive(subOriginal);
+                copy.getTableauDND().set(i, subCopy);
+            }
+        }
+        
+        return copy;
+    }
+
+    
 }
 
 
