@@ -1,6 +1,18 @@
 <Configuration>
+    <dimensionalité>1d</dimensionalité>
+    <Taille>31</Taille> <!-- 31 pour un exemple, peut être plus grand -->
+    <Regle>
+        SI(OU(OU(G2[-1], ET(G2[0], NON(G2[1]))), ET(NON(G2[-1]), G2[1])), 1, 0)
+    </Regle>
+    <initialState>RANDOM(15)</initialState> <!-- Initialisation aléatoire avec 15% de chance d'être 1 -->
+    <Voisinages>
+        <Voisinage></Voisinage>
+    </Voisinages>
+</Configuration>
+
+<!-- <Configuration>
     <dimensionalité>2d</dimensionalité>
-    <Taille>2</Taille>
+    <Taille>2,4</Taille>
     <!-- <display>(26,,)</display>  exemple -->
     <Regle>SI(EQ(COMPTER(G4), 1), SI(SUPEQ(COMPTER(G4), 4), 0, 1), SI(EQ(COMPTER(G4), 2), 1, 0))</Regle>
     <initialState>RANDOM(15)</initialState>
@@ -17,4 +29,5 @@
         </Voisinage>
     </Voisinages>
 
-</Configuration>
+</Configuration> 
+-->

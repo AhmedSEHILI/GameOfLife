@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class TraitementXML {
     private String regle;
-    private int taille;
+    private int[] taille;
     private ArrayList<String> Voisinages;
     private String initState;
 
@@ -34,24 +34,25 @@ public class TraitementXML {
             System.out.println("\nNode Name :"+ node.getNodeName()); 
             if (node.getNodeType() == Node.ELEMENT_NODE) { 
                 Element tElement = (Element) node; 
+                //Get Taille
                 String Taille = tElement
                         .getElementsByTagName("Taille")
                         .item(0)
-                        .getTextContent();
-                
-                this.taille=Integer.parseInt(Taille);
+                        .getTextContent().trim();
+                extraireBounds(Taille);
+
                 // Get rule
                 String rule = tElement
                         .getElementsByTagName("Regle")
                         .item(0)
-                        .getTextContent();
+                        .getTextContent().trim();
                 this.regle=rule;
 
                 // Get initial state
                 String initialState = tElement
                         .getElementsByTagName("initialState")
                         .item(0)
-                        .getTextContent();
+                        .getTextContent().trim();
                 this.initState=initialState;
 
                 NodeList nodeList = tElement.getElementsByTagName("Voisinages");
@@ -59,7 +60,7 @@ public class TraitementXML {
                     Node n = nodeList.item(i);
                     if (n.getNodeType() == Node.ELEMENT_NODE) { 
                         Element e = (Element) n;
-                        Voisinages.add(e.getElementsByTagName("Voisinage").item(0).getTextContent());
+                        Voisinages.add(e.getElementsByTagName("Voisinage").item(0).getTextContent().trim());
                     }
                 }
             }  
@@ -68,12 +69,20 @@ public class TraitementXML {
             e.printStackTrace();
         }
     }
+    
+    private void extraireBounds(String t){
+        String[] stringSplit=t.split(",");
+        this.taille=new int[stringSplit.length];
+        for(int i=0;i<stringSplit.length;i++){
+            this.taille[i]=Integer.parseInt(stringSplit[i]);
+        }
+    }
 
     public String getRegle(){
         return regle;
     }
 
-    public int getTaille(){
+    public int[] getTaille(){
         return taille;
     }
 
@@ -81,8 +90,8 @@ public class TraitementXML {
         return Voisinages;
     }
 
+    //Initialisation du tableaux à partir du fichier XML
     public void initTableau(TableauDND tab){
-        //Application de l'initialisation a partir des init qu'on a 
         int pourcentage;
         if ((pourcentage = getRandomK(initState))>0){
             List<Integer> bounds = tab.getTabBounds();
@@ -100,10 +109,12 @@ public class TraitementXML {
         }
     }
 
-    private void initWithRandomPercentage(TableauDND tab, List<Integer> bounds, List<Integer> indices, int dim, int percentage) {
+    // Grand merci à ChatGpt pour sa contribution 
+    //Fonction qui parcours le tableaux N-Dim et initialise les cases avec une chance de pourcentage d'être 1 
+    private void initWithRandomPercentage(TableauDND tab, List<Integer> bounds, List<Integer> indices, int dim, int pourcentage) {
         if (dim == bounds.size()) {
             Random random = new Random();
-            if (random.nextInt(100) < percentage) {
+            if (random.nextInt(100) < pourcentage) {
                 tab.setValue(new ArrayList<>(indices), 1);
             }
             return;
@@ -111,7 +122,7 @@ public class TraitementXML {
 
         for (int i = 0; i < bounds.get(dim); i++) {
             indices.set(dim, i);
-            initWithRandomPercentage(tab, bounds, indices, dim + 1, percentage);
+            initWithRandomPercentage(tab, bounds, indices, dim + 1, pourcentage);
         }
     }
 
@@ -120,7 +131,7 @@ public class TraitementXML {
     //     Matcher matcher = randomPattern.matcher(initialState);
     //     return matcher.matches();
     // }
-
+        
     private int getRandomK(String initialState) {
         Pattern randomPattern = Pattern.compile("RANDOM\\((\\d+)\\)");
         Matcher matcher = randomPattern.matcher(initialState);
@@ -151,9 +162,5 @@ public class TraitementXML {
             throw new IllegalArgumentException("Invalid coordinates format: " + initialState);
         }
         return coordinates;
-    }
-
-    public static void main(String[] args) {
-        TraitementXML t = new TraitementXML("C:\\Users\\added\\eclipse-workspace\\GameOfLife\\Files\\Sierpenski.xml");
     }
 }

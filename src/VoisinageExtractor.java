@@ -6,7 +6,7 @@ public class VoisinageExtractor{
     private String nom;
     private  List<List<Integer>> coordonnees;
 
-    public VoisinageExtractor(String chaineVoisinage) { 
+    public VoisinageExtractor(String chaineVoisinage) { // On peut la rendre l'extraction des coords static pour que la classe XML puisse l'utiliser ? 
     	//doivent tous avoir la mm longueur
         Pattern pattern = Pattern.compile("\\((-?\\d+(,\\s*-?\\d+)*)\\)");
         Matcher matcher = pattern.matcher(chaineVoisinage);
