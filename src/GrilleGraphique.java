@@ -3,9 +3,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 //Merci à StackOverflow pour sa précieuse contribution !
 
@@ -44,27 +47,29 @@ public class GrilleGraphique extends JPanel
 
 	@Override
 	//Fonction d'affichage de la grille.
-	protected void paintComponent(Graphics g) 
-	{
-		super.paintComponent(g);
-		for (Point fillCell : casesAColorier) 
-		{
-			int cellX = taille_case + (fillCell.x * taille_case);
-			int cellY = taille_case + (fillCell.y * taille_case);
-			g.setColor(Color.BLUE);
-			g.fillRect(cellX, cellY, taille_case, taille_case);
-		}
-		
-		g.setColor(Color.BLACK);
-		g.drawRect(taille_case, taille_case, largeur*taille_case, hauteur*taille_case);
+	protected void paintComponent(Graphics g) {
+	    super.paintComponent(g);
+	    List<Point> casesCopy;
+	    synchronized (casesAColorier) {
+	        casesCopy = new ArrayList<>(casesAColorier);
+	    }
+	    for (Point fillCell : casesCopy) {
+	        int cellX = taille_case + (fillCell.x * taille_case);
+	        int cellY = taille_case + (fillCell.y * taille_case);
+	        g.setColor(Color.BLUE);
+	        g.fillRect(cellX, cellY, taille_case, taille_case);
+	    }
 
-		for (int i = taille_case; i <= largeur*taille_case; i += taille_case) {
-			g.drawLine(i, taille_case, i, hauteur*taille_case+taille_case);
-		}
+	    g.setColor(Color.BLACK);
+	    g.drawRect(taille_case, taille_case, largeur*taille_case, hauteur*taille_case);
 
-		for (int i = taille_case; i <= hauteur*taille_case; i += taille_case) {
-			g.drawLine(taille_case, i, largeur*taille_case+taille_case, i);
-		}
+	    for (int i = taille_case; i <= largeur*taille_case; i += taille_case) {
+	        g.drawLine(i, taille_case, i, hauteur*taille_case + taille_case);
+	    }
+
+	    for (int i = taille_case; i <= hauteur*taille_case; i += taille_case) {
+	        g.drawLine(taille_case, i, largeur*taille_case + taille_case, i);
+	    }
 	}
 
 	/**
@@ -126,4 +131,52 @@ public class GrilleGraphique extends JPanel
         
         iterateur1D ++;
 	}
+	
+
+	private static List<Integer> parseMatlabSyntax(String matlabSyntax, int dimensions) {
+	    List<Integer> coords = new ArrayList<>(Collections.nCopies(dimensions, -1));
+	    matlabSyntax = matlabSyntax.replaceAll("[()\\s]", ""); // Enlever les parenthèses et les espaces
+	    String[] parts = matlabSyntax.split(",");
+
+	    for (int i = 0; i < parts.length; i++) {
+	        if (!parts[i].equals(":")) {
+	            coords.set(i, Integer.parseInt(parts[i]));
+	        }
+	    }
+
+	    return coords;
+	}
+	
+
+	
+    public static void afficheurND(int dim1, int dim2, String matlabSyntax, TableauDND tab, GrilleGraphique grid) {
+        List<Integer> coords = parseMatlabSyntax(matlabSyntax, tab.getTabBounds().size());
+        afficherPlan2D(tab, coords, dim1, dim2, grid);
+    }
+	
+    private static void afficherPlan2D(TableauDND tab, List<Integer> coords, int dim1, int dim2, GrilleGraphique grid) {
+        for (int i = 0; i < dim1; i++) {
+            for (int j = 0; j < dim2; j++) {
+                List<Integer> currentCoords = new ArrayList<>(coords);
+                int indexDim1 = coords.indexOf(-1);
+                int indexDim2 = coords.lastIndexOf(-1);
+
+                if (indexDim1 != -1) {
+                    currentCoords.set(indexDim1, i);
+                }
+
+                if (indexDim2 != -1) {
+                    currentCoords.set(indexDim2, j);
+                }
+
+                if (tab.getValue(currentCoords) == 1) {
+                    grid.colorierCase(j, i); // Colorier l'état
+                }
+            }
+        }
+    }
+
+
+
+
 }

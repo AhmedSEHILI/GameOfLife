@@ -117,6 +117,37 @@ public class TableauDND{
     }
 
     
+
+
+    public static boolean comparerTabDND(TableauDND tab1, TableauDND tab2) {
+        if (!tab1.getTabBounds().equals(tab2.getTabBounds())) {
+            return false;
+        }
+
+        List<Integer> bounds = tab1.getTabBounds();
+
+        if (bounds.size() == 1) {
+            for (int i = 0; i < bounds.get(0); i++) {
+                List<Integer> coords = Arrays.asList(i);
+                if (tab1.getValue(coords) != tab2.getValue(coords)) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = 0; i < bounds.get(0); i++) {
+                TableauDND subTab1 = (TableauDND) tab1.getTableauDND().get(i);
+                TableauDND subTab2 = (TableauDND) tab2.getTableauDND().get(i);
+                if (!comparerTabDND(subTab1, subTab2)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    
+    
+    
 }
 
 

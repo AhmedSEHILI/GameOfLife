@@ -1,0 +1,10 @@
+<Configuration>
+    <dimensionalité>4</dimensionalité>
+    <Taille>20,20,20,20</Taille>
+    <Regle>
+        SI(EQ(COMPTER(G8), 1), 1, 0)
+    </Regle>
+    <initialState>((0,0,1,2),(0,0,2,3),(0,0,1,5),(0,0,12,11))</initialState> 
+    <Voisinages>
+    </Voisinages>
+</Configuration>

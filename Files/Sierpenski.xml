@@ -1,0 +1,10 @@
+<Configuration>
+    <dimensionalité>1</dimensionalité>
+    <Taille>1,101</Taille>     
+    <Regle>
+        MUL(SUB(SI(COMPTER(G2*), 1, 0), SI(EQ(COMPTER(G2*), 2), 1, 0)), SUB(1, COMPTER(G0)))
+    </Regle>
+    <initialState>(0,50)</initialState>
+    <Voisinages>
+    </Voisinages>
+</Configuration>
