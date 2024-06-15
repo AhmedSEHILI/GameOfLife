@@ -13,8 +13,7 @@ public class Voisinage implements Iterator<List<Integer>>, Iterable<List<Integer
 		
 		this.index = 0;
 		this.point = point;
-		//Vois = new VoisinageExtractor(chaineVoisinage);
-		coordonneesVoisinage = voisinageBDD.bddGet(nomVoisinage).getCoordonnees(); // important if voisinageBDD.bddGet(nomVoisinage) == null  gérer l'exception
+		coordonneesVoisinage = voisinageBDD.bddGet(nomVoisinage).getCoordonnees(); 
 		nbrCoords = coordonneesVoisinage.size();
 		this.tabBounds = tabBounds;
 	}

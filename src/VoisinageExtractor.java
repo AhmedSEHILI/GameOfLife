@@ -7,12 +7,9 @@ public class VoisinageExtractor{
     private  List<List<Integer>> coordonnees;
 
     public VoisinageExtractor(String chaineVoisinage) { 
-    	//doivent tous avoir la mm longueur
     	Pattern pattern = Pattern.compile("\\((-?\\d+(,\\s*-?\\d+)*)\\)");
         Matcher matcher = pattern.matcher(chaineVoisinage);
         	
-        /// Exceptions : - gérer davantage la regex (bonne detection de format) (ex: les sous listes
-        ///				 - Gk* vérifier si le pt (0,0) existe au pas
         List<List<Integer>> coordonnees = new ArrayList<List<Integer>>();
         while (matcher.find()) {
         	List<Integer> coord = new ArrayList<Integer>();
@@ -26,7 +23,6 @@ public class VoisinageExtractor{
         this.nom = chaineVoisinage.substring(0, chaineVoisinage.indexOf("=")).strip();
         this.coordonnees = coordonnees;
         
-     //   System.out.println(coordonnees);
     }
 
     public String getNom() {

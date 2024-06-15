@@ -39,7 +39,7 @@ public class TableauDND{
 		if (dim > 1) {
 			return tab.get(coords.get(0)).getValue(coords.subList(1, dim));
 		} else {
-			return ((Cellule) tab.get(coords.get(0))).get(); // Exception to manage (java.lang.ArrayIndexOutOfBoundsException)
+			return ((Cellule) tab.get(coords.get(0))).get(); 
 		}
 	}
 	
@@ -54,7 +54,6 @@ public class TableauDND{
     }
 	
 	public List<TableauDND> getTDND(){
-		//return Collections.unmodifiableList(tab);
 		return Collections.unmodifiableList(tab);
 	}
     

@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+/** le code de cette classe est fortement inspiré de stackoverflow, il sert juste a la gestion de l'interface graphique
+
 /**
  *  FlowLayout subclass that fully supports wrapping of components.
  */

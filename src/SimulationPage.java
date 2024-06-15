@@ -236,9 +236,7 @@ public class SimulationPage extends JPanel {
 
 
         List<Integer> dims = xml.getTaille();
-        System.out.println(dims);
 
-        System.out.println(xml.getVoisinages());
 
         TDND = new TableauDND(dims);
         xml.afficher();

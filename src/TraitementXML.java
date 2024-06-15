@@ -33,7 +33,6 @@ public class TraitementXML {
             document.getDocumentElement().normalize();
 
             Node node = document.getElementsByTagName("Configuration").item(0); 
-            // System.out.println("\nNode Name :"+ node.getNodeName()); 
             if (node.getNodeType() == Node.ELEMENT_NODE) { 
        
                 Element tElement = (Element) node; 
@@ -127,7 +126,7 @@ public class TraitementXML {
             for (int i = 0; i < bounds.size(); i++) {
                 indices.add(0);
             }
-            initWithRandomPercentage(tab, bounds, indices, 0, pourcentage); // Verifier si ça fonctionnes
+            initWithRandomPercentage(tab, bounds, indices, 0, pourcentage); 
         }else{
             // init tableaux
             List<List<Integer>> coords=getCoordinates(initState);
@@ -171,14 +170,12 @@ public class TraitementXML {
         throw new IllegalArgumentException("Invalid RANDOM format: " + initialState);
     }
 
-    private List<List<Integer>> getCoordinates(String initialState) { /// Repeter dans deux fonction est-ce qu'on peut pas la généralisé ?
+    private List<List<Integer>> getCoordinates(String initialState) { 
     	
 
     	Pattern pattern = Pattern.compile("\\((-?\\d+(,\\s*-?\\d+)*)\\)");
         Matcher matcher = pattern.matcher(initialState);
         	
-        /// Exceptions : - gérer davantage la regex (bonne detection de format) (ex: les sous listes
-        ///				 - Gk* vérifier si le pt (0,0) existe au pas
         List<List<Integer>> coordinates = new ArrayList<List<Integer>>();
         while (matcher.find()) {
         	List<Integer> coord = new ArrayList<Integer>();

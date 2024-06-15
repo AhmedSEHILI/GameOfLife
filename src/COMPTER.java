@@ -15,7 +15,7 @@ public class COMPTER extends Regle<TableauDND>{ // cette classe ne peut pas rejo
 	
     
     public void calculer() {
-		Voisinage v = new Voisinage(super.Point,super.nomVoisinage,super.tab.getTabBounds());  // nom voisinage ??
+		Voisinage v = new Voisinage(super.Point,super.nomVoisinage,super.tab.getTabBounds());  
 		int cpt = 0;	
 		
 		for(List<Integer> e : v) {

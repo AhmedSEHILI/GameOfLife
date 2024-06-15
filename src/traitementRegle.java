@@ -136,7 +136,6 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 			return N;
 		}
 	
-		// il faut implémenter un testeur de validité de la règle (nbr par ouvrantes = fermante ....)
 		
 	    private void creerArbreRegle(String chaineRegle) { // cette mthd crée l'arbre avec les opératueur dans chaque noeud
 	    												  // si le noeud doit etre un opérateur, on met dedans une instatnce de la classe opérateur correspondante
@@ -212,9 +211,7 @@ public  class traitementRegle extends arbreCalcul<Regle<TableauDND>> {
 			noeud.getR().calculer();
 			
 			
-			
-		//	System.out.println(noeud.getR().getClass() + " | " + noeud.getR().getValue() + " | " +  noeud.getR().getnomVoisinage() );
-			//System.out.println("---------------------");
+
 
 		}
 		

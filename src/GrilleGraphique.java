@@ -147,29 +147,23 @@ public class GrilleGraphique extends JPanel {
     
     
     public static boolean isMatlabSyntax(String matlabSyntax, int dimensions) {
-        // Enlever les parenthèses et les espaces
         matlabSyntax = matlabSyntax.replaceAll("[()\\s]", "");
 
-        // Vérifier que la chaîne ne contient que des chiffres, des ':', et des ','
         if (!matlabSyntax.matches("[0-9,:]*")) {
             return false;
         }
 
-        // Diviser la chaîne par les virgules
         String[] parts = matlabSyntax.split(",");
 
-        // Vérifier que le nombre de parties est égal à dimensions
         if (parts.length != dimensions) {
             return false;
         }
 
-        // Compter le nombre de ':' dans les parties
         int colonCount = 0;
         for (String part : parts) {
             if (part.equals(":")) {
                 colonCount++;
             } else {
-                // Vérifier que les parties non ':' sont des entiers valides
                 try {
                     Integer.parseInt(part);
                 } catch (NumberFormatException e) {
@@ -178,7 +172,7 @@ public class GrilleGraphique extends JPanel {
             }
         }
 
-        // Vérifier que le nombre de ':' est égal à dimensions - 2
+        // Vérifier que le nombre de ':' est égal - 2
         return colonCount == 2;
     }
 }
