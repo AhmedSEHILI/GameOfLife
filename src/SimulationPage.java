@@ -302,7 +302,7 @@ public class SimulationPage extends JPanel {
 
                             String coords = coordInputField.getText();
                             if (!GrilleGraphique.isMatlabSyntax(coords, dimentionnalite)) {
-                                JOptionPane.showMessageDialog(this, "Veuillez entrer un plan valide.");
+                                JOptionPane.showMessageDialog(this, "Veuillez entrer un plan valide\nVeuillez entrez un plan de type (0,:,:,1 ... ) ou le nombre de ':' est égal à deux");
                                 startButton.setEnabled(true);
                                 stopButton.setEnabled(false);
                                 resumeButton.setEnabled(false);
