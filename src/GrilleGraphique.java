@@ -1,108 +1,83 @@
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.util.concurrent.CopyOnWriteArrayList;
 
+public class GrilleGraphique extends JPanel {
+    private static final long serialVersionUID = 1L;
+    private int largeur, hauteur, taille_case;
 
-//Merci à StackOverflow pour sa précieuse contribution !
+    public static int iterateur1D = 0; // pour l'affichage des tab 1D dans la mm grille 
 
+    public List<Point> casesAColorier;
 
-public class GrilleGraphique extends JPanel
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Constructeur.
+     * @param largeur La largeur (en nombre de cases) de la grille affichée.
+     * @param hauteur La hauteur (en nombre de cases) de la grille affichée.
+     */
+    public GrilleGraphique(int largeur, int hauteur, int taille_case) {
+        this.largeur = largeur;
+        this.hauteur = hauteur;
+        this.taille_case = taille_case;
+        casesAColorier = new ArrayList<>();
+    }
 
-	private int largeur, hauteur, taille_case;
-	
-	public static int iterateur1D = 0; // pour l'affichage des tab 1D dans la mm grille 
-	
-	public List<Point> casesAColorier;
+    @Override
+    //Fonction d'affichage de la grille.
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        List<Point> casesCopy;
+        synchronized (casesAColorier) {
+            casesCopy = new ArrayList<>(casesAColorier);
+        }
+        for (Point fillCell : casesCopy) {
+            int cellX = taille_case + (fillCell.x * taille_case);
+            int cellY = taille_case + (fillCell.y * taille_case);
+            g.setColor(Color.BLUE);
+            g.fillRect(cellX, cellY, taille_case, taille_case);
+        }
 
-	/**
-	 * Constructeur.
-	 * @param largeur La largeur (en nombre de cases) de la grille affichée.
-	 * @param hauteur La hauteur (en nombre de cases) de la grille affichée.
-	 */
-	public GrilleGraphique(int largeur, int hauteur, int taille_case) 
-	{
-		this.largeur = largeur;
-		this.hauteur = hauteur;
-		this.taille_case = taille_case;
-		casesAColorier = new ArrayList<>();
+        g.setColor(Color.BLACK);
+        g.drawRect(taille_case, taille_case, largeur * taille_case, hauteur * taille_case);
 
-		JFrame window = new JFrame();
-		window.setSize(largeur*taille_case+200, hauteur*taille_case+200);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.add(this);
-		window.setVisible(true);
-	}
+        for (int i = taille_case; i <= largeur * taille_case; i += taille_case) {
+            g.drawLine(i, taille_case, i, hauteur * taille_case + taille_case);
+        }
 
-	@Override
-	//Fonction d'affichage de la grille.
-	protected void paintComponent(Graphics g) {
-	    super.paintComponent(g);
-	    List<Point> casesCopy;
-	    synchronized (casesAColorier) {
-	        casesCopy = new ArrayList<>(casesAColorier);
-	    }
-	    for (Point fillCell : casesCopy) {
-	        int cellX = taille_case + (fillCell.x * taille_case);
-	        int cellY = taille_case + (fillCell.y * taille_case);
-	        g.setColor(Color.BLUE);
-	        g.fillRect(cellX, cellY, taille_case, taille_case);
-	    }
+        for (int i = taille_case; i <= hauteur * taille_case; i += taille_case) {
+            g.drawLine(taille_case, i, largeur * taille_case + taille_case, i);
+        }
+    }
 
-	    g.setColor(Color.BLACK);
-	    g.drawRect(taille_case, taille_case, largeur*taille_case, hauteur*taille_case);
+    /**
+     * Fonction permettant de colorier, en rouge, une case de la grille
+     * @param x Abscisse de la case à colorier (entre 0 et largeur de grille - 1).
+     * @param y Ordonnée de la case à colorier (entre 0 et hauteur de grille - 1).
+     */
+    public void colorierCase(int x, int y) {
+        casesAColorier.add(new Point(x, y));
+        repaint();
+    }
 
-	    for (int i = taille_case; i <= largeur*taille_case; i += taille_case) {
-	        g.drawLine(i, taille_case, i, hauteur*taille_case + taille_case);
-	    }
+    /**
+     * Accesseur.
+     * @return Renvoie la largeur de la grille
+     */
+    public int getLargeur() {
+        return largeur;
+    }
 
-	    for (int i = taille_case; i <= hauteur*taille_case; i += taille_case) {
-	        g.drawLine(taille_case, i, largeur*taille_case + taille_case, i);
-	    }
-	}
+    /**
+     * Accesseur.
+     * @return Renvoie la hauteur de la grille
+     */
+    public int getHauteur() {
+        return hauteur;
+    }
 
-	/**
-	 * Fonction permettant de colorier, en rouge, une case de la grille
-	 * @param x Abscisse de la case à colorier (entre 0 et largeur de grille - 1).
-	 * @param y Ordonnée de la case à colorier (entre 0 et hauteur de grille - 1).
-	 */
-	public void colorierCase(int x, int y) 
-	{
-		casesAColorier.add(new Point(x, y));
-		repaint();
-	}
-	
-	/**
-	 * Accesseur.
-	 * @return Renvoie la largeur de la grille
-	 */
-	public int getLargeur()
-	{
-		return largeur;
-	}
-	
-	/**
-	 * Accesseur.
-	 * @return Renvoie la hauteur de la grille
-	 */
-	public int getHauteur()
-	{
-		return hauteur;
-	}
-	
-	public static void afficheur2D(int dim1, int dim2, TableauDND tab, GrilleGraphique grid) {
-		
+    public static void afficheur2D(int dim1, int dim2, TableauDND tab, GrilleGraphique grid) {
         for (int i = 0; i < dim1; i++) {
             for (int j = 0; j < dim2; j++) {
                 ArrayList<Integer> coord = new ArrayList<>();
@@ -113,11 +88,9 @@ public class GrilleGraphique extends JPanel
                 }
             }
         }
-	}
-	
-	
-	public static void afficheur1D(int dim2, TableauDND tab, GrilleGraphique grid) {  // pour le triangle de S.... par exemple;
-		
+    }
+
+    public static void afficheur1D(int dim2, TableauDND tab, GrilleGraphique grid) {  // pour le triangle de S.... par exemple;
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < dim2; j++) {
                 ArrayList<Integer> coord = new ArrayList<>();
@@ -128,32 +101,28 @@ public class GrilleGraphique extends JPanel
                 }
             }
         }
-        
-        iterateur1D ++;
-	}
-	
+        iterateur1D++;
+    }
 
-	private static List<Integer> parseMatlabSyntax(String matlabSyntax, int dimensions) {
-	    List<Integer> coords = new ArrayList<>(Collections.nCopies(dimensions, -1));
-	    matlabSyntax = matlabSyntax.replaceAll("[()\\s]", ""); // Enlever les parenthèses et les espaces
-	    String[] parts = matlabSyntax.split(",");
+    private static List<Integer> parseMatlabSyntax(String matlabSyntax, int dimensions) {
+        List<Integer> coords = new ArrayList<>(Collections.nCopies(dimensions, -1));
+        matlabSyntax = matlabSyntax.replaceAll("[()\\s]", ""); // Enlever les parenthèses et les espaces
+        String[] parts = matlabSyntax.split(",");
 
-	    for (int i = 0; i < parts.length; i++) {
-	        if (!parts[i].equals(":")) {
-	            coords.set(i, Integer.parseInt(parts[i]));
-	        }
-	    }
+        for (int i = 0; i < parts.length; i++) {
+            if (!parts[i].equals(":")) {
+                coords.set(i, Integer.parseInt(parts[i]));
+            }
+        }
 
-	    return coords;
-	}
-	
+        return coords;
+    }
 
-	
     public static void afficheurND(int dim1, int dim2, String matlabSyntax, TableauDND tab, GrilleGraphique grid) {
         List<Integer> coords = parseMatlabSyntax(matlabSyntax, tab.getTabBounds().size());
         afficherPlan2D(tab, coords, dim1, dim2, grid);
     }
-	
+
     private static void afficherPlan2D(TableauDND tab, List<Integer> coords, int dim1, int dim2, GrilleGraphique grid) {
         for (int i = 0; i < dim1; i++) {
             for (int j = 0; j < dim2; j++) {
@@ -175,8 +144,41 @@ public class GrilleGraphique extends JPanel
             }
         }
     }
+    
+    
+    public static boolean isMatlabSyntax(String matlabSyntax, int dimensions) {
+        // Enlever les parenthèses et les espaces
+        matlabSyntax = matlabSyntax.replaceAll("[()\\s]", "");
 
+        // Vérifier que la chaîne ne contient que des chiffres, des ':', et des ','
+        if (!matlabSyntax.matches("[0-9,:]*")) {
+            return false;
+        }
 
+        // Diviser la chaîne par les virgules
+        String[] parts = matlabSyntax.split(",");
 
+        // Vérifier que le nombre de parties est égal à dimensions
+        if (parts.length != dimensions) {
+            return false;
+        }
 
+        // Compter le nombre de ':' dans les parties
+        int colonCount = 0;
+        for (String part : parts) {
+            if (part.equals(":")) {
+                colonCount++;
+            } else {
+                // Vérifier que les parties non ':' sont des entiers valides
+                try {
+                    Integer.parseInt(part);
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+        }
+
+        // Vérifier que le nombre de ':' est égal à dimensions - 2
+        return colonCount == 2;
+    }
 }

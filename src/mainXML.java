@@ -50,8 +50,7 @@ public class mainXML {
         int dim1 = 101, dim2 = 101;
         
         GrilleGraphique grid = new GrilleGraphique(dim1, dim2, 10);
-        //GrilleGraphique.afficheur2D(dim1, dim2, TDND, grid);
-        
+        //GrilleGraphique.afficheur2D(dim1, dim2, TDND, grid);        
         for(int i =0; i<100; i++) {
         	
         	

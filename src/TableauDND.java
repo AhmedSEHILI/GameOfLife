@@ -88,6 +88,23 @@ public class TableauDND{
     }
     
     
+    public static void resetTDND(TableauDND tableau) {
+    	List<Integer> coords = new ArrayList<Integer>();
+        if (tableau.getTabBounds().size() == 1) {
+            for (int i = 0; i < tableau.getTabBounds().get(0); i++) {
+                coords.add(i);
+                tableau.setValue(coords, 0);
+                coords.remove(coords.size() - 1);
+            }
+        } else {
+            for (int i = 0; i < tableau.getTabBounds().get(0); i++) {
+                coords.add(i);
+                parcourirTableau(tableau.getTableauDND().get(i));
+                coords.remove(coords.size() - 1);
+            }
+        }
+    }
+    
 
     
 

@@ -1,0 +1,11 @@
+<Configuration>
+    <dimensionalité>5</dimensionalité>
+    <Taille>10,10,10,10,10</Taille>
+    <Regle>
+        SI(NON(COMPTER(G56)), EQ(COMPTER(G56), 1), 0)
+    </Regle>
+    <initialState>((0,0,1,2,1),(0,0,2,3,1),(0,0,1,5,1),(0,0,2,4,1))</initialState> 
+    <Voisinages>
+	<Voisinage>G56={(0,0,0,0,0),(-1,0,0,0,0),(1,0,0,0,-1),(0,-1,0,0,1),(0,1,0,0,0),(0,1,0,1,1),(0,1,1,0,1)}</Voisinage>
+    </Voisinages>
+</Configuration>

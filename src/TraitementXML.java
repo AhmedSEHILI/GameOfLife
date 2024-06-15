@@ -113,6 +113,9 @@ public class TraitementXML {
         return Voisinages;
     }
 
+    public String getInitState() {
+		return initState;
+	}
     
     //Initialisation du tableaux à partir du fichier XML
     public void initTableau(TableauDND tab){
@@ -135,11 +138,9 @@ public class TraitementXML {
     }
 
     private boolean isRandom(String initialState) {
-        // Vérifie si la chaîne de caractères contient le mot "RANDOM" (peu importe la casse)
-        return initialState.toUpperCase().contains("RANDOM");
+
+    	return initialState.toUpperCase().contains("RANDOM");
     }
-    // Grand merci à ChatGpt pour sa contribution 
-    //Fonction qui parcours le tableaux N-Dim et initialise les cases avec une chance de pourcentage d'être 1 
     private void initWithRandomPercentage(TableauDND tab, List<Integer> bounds, List<Integer> indices, int dim, int pourcentage) {
         if (dim == bounds.size()) {
             Random random = new Random();
@@ -155,11 +156,6 @@ public class TraitementXML {
         }
     }
 
-    // private boolean isRandomPattern(String initialState) {
-    //     Pattern randomPattern = Pattern.compile("RANDOM\\((\\d+)\\)");
-    //     Matcher matcher = randomPattern.matcher(initialState);
-    //     return matcher.matches();
-    // }
         
     private int getRandomK(String initialState) {
         Pattern randomPattern = Pattern.compile("RANDOM\\((\\d+)\\)");

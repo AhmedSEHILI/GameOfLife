@@ -23,13 +23,6 @@ public class mainXML2 {
         voisinageBDD.bddAdd(v3);
         voisinageBDD.bddAdd(v4);
         
-                
-        
-        // String chaineRegle1 = "SI(EQ(COMPTER(G4), 1), SI(SUPEQ(COMPTER(G4), 4), 0, 1), SI(EQ(COMPTER(G4), 2), 1, 0))";
-        // String chaineRegle2 = "SI(EQ(COMPTER(G4), 1), 1, 0)";
-        // String chaineRegle3 = "SI(NON(COMPTER(G0)), EQ(COMPTER(G2), 1), 0)";
-        // String chaineRegle4 = "MUL(SUB(SI(COMPTER(G2*), 1, 0), SI(EQ(COMPTER(G2*), 2), 1, 0)), SUB(1, COMPTER(G0)))";
-        
 
         List<Integer> dims = xml.getTaille();
         System.out.println(dims);
@@ -42,26 +35,14 @@ public class mainXML2 {
         xml.afficher();
         traitementRegle traitement = new traitementRegle(xml.getRegle(), TDND);
 
-
         
         
-/*
-        TDND.setValue(a1, 1);
-        TDND.setValue(a3, 1);
-        TDND.setValue(a4, 1);
-        TDND.setValue(a5, 1);
-        TDND.setValue(a6, 1);
-       */ 
-        // TDND.setValue(a7, 1);
-        
-        
-        xml.initTableau(TDND);   //pour random
+        xml.initTableau(TDND);  
         
 
         int dim1 = 101, dim2 = 101;
         
         GrilleGraphique grid = new GrilleGraphique(dim1, dim2, 10);
-        //GrilleGraphique.afficheur2D(dim1, dim2, TDND, grid);
         
         
         for(int i =0; i<1000; i++) {

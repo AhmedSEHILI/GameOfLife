@@ -1,0 +1,12 @@
+<Configuration>
+    <dimensionalité>2</dimensionalité>
+    <Taille>101,101</Taille>
+    <Regle>
+        SI(EQ(COMPTER(G4), 1), 1, 0)
+    </Regle>
+    <initialState>((0,0),(0,100),(100,0),(100,100), (50,50))</initialState> 
+    <Voisinages>
+  	    <Voisinage>G55={(0,-1),(0,1),(1,1)}</Voisinage>
+        <Voisinage>G4*={(-1,0),(1,0),(0,-1),(0,1)}</Voisinage>
+    </Voisinages>
+</Configuration>
